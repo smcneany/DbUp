@@ -6,6 +6,7 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\dbup-snowflake\dbup-snowflake.csproj" />
     <ProjectReference Include="..\..\dbup-sqlserver\dbup-sqlserver.csproj" />
   </ItemGroup>
   <ItemGroup>
