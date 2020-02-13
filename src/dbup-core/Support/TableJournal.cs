@@ -195,7 +195,7 @@ namespace DbUp.Support
                 command.CommandText = DoesTableExistSql();
                 command.CommandType = CommandType.Text;
                 var executeScalar = command.ExecuteScalar();
-                if (executeScalar == null)
+                if (executeScalar == null || executeScalar.GetType() == typeof(System.DBNull))
                     return false;
                 if (executeScalar is long)
                     return (long)executeScalar == 1;

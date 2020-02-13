@@ -12,19 +12,24 @@ namespace SampleApplication
     {
         public static void Main(string[] args)
         {
-            var instanceName = @"(localdb)\\MSSQLLocalDB";
             // Uncomment the following line to run against sql local db instance.
             // string instanceName = @"(localdb)\Projects";
 
+            var account = "";
+            var host = "";
+            var username = "";
+            var password = "";
+            var db = "";
+            var schema = "";
             var connectionString =
-                $"Server={instanceName}; Database=test8; Trusted_connection=true";
+                $"account={account};host={host};user={username};password={password};db={db};schema={schema}";
 
-            DropDatabase.For.SqlDatabase(connectionString);
+            //DropDatabase.For.SnowflakeDatabase(connectionString);
 
-            EnsureDatabase.For.SqlDatabase(connectionString);
+            EnsureDatabase.For.SnowflakeDatabase(connectionString);
 
             var upgradeEngineBuilder = DeployChanges.To
-                .SqlDatabase(connectionString, null) //null or "" for default schema for user
+                .SnowflakeDatabase(connectionString) 
                 .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly(), script =>
                 {
                     if (script.EndsWith("Script0006 - Transactions.sql"))
@@ -32,7 +37,7 @@ namespace SampleApplication
 
                     return script.StartsWith("SampleApplication.Scripts.");
                 })
-                .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly(), script => script.StartsWith("SampleApplication.RunAlways."), new SqlScriptOptions { ScriptType = ScriptType.RunAlways, RunGroupOrder = DbUpDefaults.DefaultRunGroupOrder + 1 })
+                //.WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly(), script => script.StartsWith("SampleApplication.RunAlways."), new SqlScriptOptions { ScriptType = ScriptType.RunAlways, RunGroupOrder = DbUpDefaults.DefaultRunGroupOrder + 1 })
                 .LogToConsole();
 
             if (args.Any(a => "--withTransaction".Equals(a, StringComparison.InvariantCultureIgnoreCase)))

@@ -7,7 +7,7 @@ namespace DbUp.Snowflake
 {
     /// <summary>
     /// An implementation of the <see cref="Engine.IJournal"/> interface which tracks version numbers for a 
-    /// SQL Server database using a table called dbo.SchemaVersions.
+    /// Snowflake database using a table called dbo.SchemaVersions.
     /// </summary>
     public class SnowflakeTableJournal : TableJournal
     {
